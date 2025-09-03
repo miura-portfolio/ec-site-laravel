@@ -1,0 +1,585 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header, footer {
+    background-color: #007bff;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+.container {
+    max-width: 960px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1, h2, h3 {
+    margin-top: 0;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+form input, form textarea, form button {
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+}
+
+header nav a {
+    color: white !important;
+}
+
+header nav a:hover {
+    color: #e0e0e0 !important;
+    text-decoration: underline;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+}
+
+nav span {
+    color: white;
+    font-weight: bold;
+}
+
+nav form button {
+    background: none;
+    border: none;
+    color: white;
+    font: inherit;
+    cursor: pointer;
+}
+
+nav form button:hover {
+    text-decoration: underline;
+    color: #e0e0e0;
+}
+
+footer a {
+    color: white !important;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #e0e0e0 !important;
+    text-decoration: underline;
+}
+
+header form button,
+footer form button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 1rem;
+}
+
+header form button:hover,
+footer form button:hover {
+    color: #e0e0e0;
+    text-decoration: underline;
+}
+
+.link-button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    padding: 0;
+    margin-left: 1rem;
+    text-decoration: none;
+}
+
+.link-button:hover {
+    color: #e0e0e0;
+    text-decoration: underline;
+}
+
+.login-container {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+.login-button {
+    width: auto;
+    padding: 0.3rem 1.5rem;
+    font-size: 1rem;
+}
+
+.login-form {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.register-form {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.register-form input,
+.register-form button {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+}
+
+.register-form .register-button {
+    width: auto;
+    padding: 0.3rem 1.5rem;
+    font-size: 1rem;
+}
+
+.flash-message {
+    background-color: #e6ffe6;
+    color: #006400;
+    padding: 1rem;
+    border: 1px solid #90ee90;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.flash-message.error {
+    background-color: #ffe6e6;
+    color: #cc0000;
+    border: 1px solid #f5c2c2;
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.product-card {
+    background-color: #fff;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 200px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.product-table th,
+.product-table td {
+    border: 1px solid #ccc;
+    padding: 0.75rem;
+    text-align: center;
+}
+
+.product-image {
+    width: 50px;
+    height: auto;
+}
+
+.detail-button {
+    display: inline-block;
+    background-color: #2ecc71;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.search-form button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-form button:hover {
+    background-color: #0056b3;
+}
+
+.search-form .search-group {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.search-form input,
+.search-form button {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.search-form {
+    margin: 0 auto 1.5rem;
+    max-width: 600px;  /* お好みで調整可 */
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.05);
+}
+
+.search-form input {
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.search-form input[type="text"],
+.search-form input[type="number"],
+.search-form button {
+    flex: 1;
+    min-width: 120px;
+}
+
+/* === ハートボタン（お気に入り） === */
+.heart-btn {
+    font-size: 24px;          /* ハート文字サイズ */
+    line-height: 1;
+    display: inline;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    color: #b5b5b5;           /* 未いいね＝灰色 */
+    cursor: pointer;
+    user-select: none;
+    vertical-align: middle;
+}
+.heart-btn[aria-pressed="true"] {
+    color: #e53935;           /* いいね＝赤 */
+}
+.heart-btn:focus-visible {
+    outline: 2px solid #99c2ff;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* ===== 商品詳細専用 ===== */
+.product-detail p.tight {
+    margin: 0;
+    line-height: 1.4;
+}
+
+.product-detail .spacer {
+    height: 8px;  /* 改行の代わりに薄い間隔 */
+}
+
+.product-detail .img-wrap {
+    margin: 8px 0;
+}
+
+/* === ハートボタン（フォーム共通ルールの上書き）=== */
+form button.heart-btn {
+    width: auto;          /* 100% を打ち消し → 文字幅だけ */
+    display: inline;      /* block を打ち消し */
+    padding: 0;           /* 余白ゼロに */
+    margin: 0;            /* 下マージン 1rem を打ち消し */
+    line-height: 1;
+    border: none;
+    background: none;
+    user-select: none;
+    cursor: pointer;
+    vertical-align: middle;
+    /* 色やフォントサイズは既存の .heart-btn が適用されるので不要 */
+}
+
+/* フォーム自体も横幅を取らないように（任意） */
+.like-form {
+    display: inline;
+    margin: 0;
+}
+
+/* === 購入フォーム専用スタイル === */
+.purchase-form {
+    margin-top: 12px;
+}
+
+.purchase-form label {
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.purchase-form input[type="number"] {
+    width: 80px;      /* 購入個数欄をコンパクトに */
+    display: inline;  /* 横並びにする */
+    padding: 0.3rem;
+    margin-right: 1rem;
+}
+
+.purchase-form .purchase-button {
+    display: inline-block;
+    padding: 0.3rem 1rem;
+    font-size: 1rem;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.purchase-form .purchase-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.purchase-form .back-button {
+    display: inline-block;
+    padding: 0.3rem 1rem;
+    font-size: 1rem;
+    background-color: #aaa;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-left: 0.5rem;
+}
+
+/* === 商品購入フォーム用 === */
+.purchase-form {
+    margin-top: 12px;
+    text-align: left;
+}
+
+.purchase-form label {
+    margin-right: 0.5rem;
+}
+
+.purchase-form input[type="number"] {
+    width: 4em;              /* ラベルと同じくらいの幅でコンパクトに */
+    display: inline-block;   /* インラインで並べる */
+    padding: 0.3rem;         /* ちょうどいい高さ */
+    margin: 0;
+}
+
+.purchase-button {
+    display: inline-block;
+    background-color: #28a745; /* 緑ボタン */
+    color: white;
+    padding: 0.3rem 1rem;      /* コンパクトに */
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.purchase-button:disabled {
+    background-color: #ccc;  /* 在庫0のとき無効風に */
+    cursor: not-allowed;
+}
+
+.back-button {
+    display: inline-block;
+    background-color: #aaa;  /* 戻るはグレー */
+    color: white;
+    padding: 0.3rem 1rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-left: 0.5rem;
+}
+
+/* ===== 商品詳細専用 ===== */
+.product-detail p.tight {
+    margin: 0;
+    line-height: 1.4;
+}
+
+.product-detail .spacer {
+    height: 8px;  /* 改行の代わりに薄い間隔 */
+}
+
+.product-detail .img-wrap {
+    margin: 8px 0;
+}
+
+/* === コンパクトレイアウト用コンテナ === */
+.container-narrow {
+    max-width: 720px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+/* 入力系はみ出し防止（paddingを幅に含める） */
+form input,
+form textarea,
+form button {
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+/* お好み：テキストエリアは縦リサイズのみ */
+form textarea {
+    resize: vertical;
+}
+
+/* === 入力行とボタン行の共通レイアウト === */
+.form-row {
+    margin: 0.5rem 0;
+}
+
+.form-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: flex-start;  /* ← 左寄せ */
+    flex-direction: row;          /* ← 横並び */
+}
+/* ボタンの統一サイズ（登録/戻るを同じ見た目に、小さめ） */
+.btn {
+    display: inline-flex;        /* 高さ/縦位置を揃える */
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+
+    line-height: 1;              /* 高さ計算の差をなくす */
+    width: auto;                 /* ← これで form の width:100% を打ち消し */
+    margin: 0;                   /* ← これで form の margin-bottom:1rem を打ち消し */
+    min-width: 80px;
+    max-width: 100px;
+
+    vertical-align: middle;
+    box-sizing: border-box;
+    appearance: none;
+}
+
+.btn:hover {
+    text-decoration: none;   /* a:hover の下線を無効化 */
+}
+
+.btn-success {
+    background-color: #28a745;  /* 緑 */
+    color: #fff;
+    border: none;
+}
+.btn-success:hover {
+    background-color: #218838;  /* 濃い緑 */
+}
+
+.btn-primary { background: #28a745; color: #fff; }
+.btn-secondary { background: #aaa; color: #fff; }
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* フォーム配下の .btn にだけ残る既定余白などを確実に無効化 */
+form button.btn {
+    margin: 0;        /* 念のためダブル保険 */
+    width: auto;
+    display: inline-flex;
+}
+
+/* 危険操作用 */
+.btn-danger { background: #dc3545; color: #fff; }
+
+/* マイページ：出品商品の商品説明だけ左寄せ */
+.product-table td.description-cell {
+    text-align: left;
+}
+
+/* 長文ボタンを折り返さない */
+.btn-no-wrap { 
+  white-space: nowrap;
+  max-width: none;   /* 以前の .btn の max-width の影響を無効化 */
+}
+
+/* ==== 商品編集：画像周りの整え ==== */
+.img-wrap { margin: 6px 0; }
+.img-preview { width: 160px; height: auto; display: block; }
+.inline-checkbox { display: inline-flex; align-items: center; gap: .4rem; margin: .25rem 0; }
+.muted { color: #666; margin: 6px 0; }
+.image-field .file-row { display: flex; align-items: center; gap: .5rem; }
+
+/* 一覧の「購入 / 詳細」ボタンを横並び＆折り返し禁止 */
+.product-table td.action-cell {
+  white-space: nowrap;
+}
+.product-table td.action-cell .btn {
+  display: inline-flex;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.product-table td.action-cell .btn:last-child {
+  margin-right: 0;
+}
+
+/* 編集画面：現在の画像 + 「画像を削除する」を横並び・改行禁止 */
+.image-inline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+.inline-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap; /* ←ここが改行防止のキモ */
+}
+.img-preview {
+  max-height: 80px;
+  width: auto;
+  border-radius: 6px;
+}
