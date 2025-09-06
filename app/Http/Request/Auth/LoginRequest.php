@@ -4,6 +4,10 @@ namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * ログインの入力検証
+ * 検証項目: email, password
+ */
 class LoginRequest extends FormRequest
 {
     public function authorize(): bool { return true; }

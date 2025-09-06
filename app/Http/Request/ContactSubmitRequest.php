@@ -4,6 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * お問い合わせフォームの入力検証
+ */
 class ContactSubmitRequest extends FormRequest
 {
     public function authorize(): bool { return true; }

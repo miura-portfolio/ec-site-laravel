@@ -1,3 +1,6 @@
+{{-- ファイル: auth/register_view.blade.php
+ 目的 : 会員登録
+ 依存 : route('auth.register.submit'), route('login') --}}
 @extends('layouts.header_footer')
 
 @section('content')

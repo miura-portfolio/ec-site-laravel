@@ -1,3 +1,6 @@
+{{-- ファイル: products/owner_detail_view.blade.php
+ 目的 : 出品者向けの商品詳細（編集/削除導線）
+ 依存 : route('product.edit'), route('product.destroy'), route('mypage.index') --}}
 @extends('layouts.header_footer')
 
 @section('content')
@@ -11,7 +14,6 @@
         <p class="tight"><strong>説明：</strong></p>
         <p style="white-space:pre-wrap; margin-top:4px;">{{ $product->description }}</p>
 
-        {{-- ★画像はあるときだけ表示（noimageは出さない） --}}
         @if(!empty($product->img_path))
             <div class="img-wrap" style="margin:8px 0;">
                 <img src="{{ asset($product->img_path) }}" alt="{{ $product->product_name }}" width="300">
@@ -26,29 +28,15 @@
         <div class="spacer"></div>
 
         <div class="form-actions">
-            {{-- 編集 --}}
-            <a href="{{ route('product.edit', $product->id) }}"
-               class="btn btn-primary btn-compact btn-no-wrap">
-                編集
-            </a>
+            <a href="{{ route('product.edit', $product->id) }}" class="btn btn-primary btn-compact btn-no-wrap">編集</a>
 
-            {{-- 削除（確認ダイアログあり） --}}
-            <form action="{{ route('product.destroy', $product->id) }}"
-                  method="POST"
-                  class="js-delete-form"
-                  style="display:inline;">
+            <form action="{{ route('product.destroy', $product->id) }}" method="POST" class="js-delete-form" style="display:inline;">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-danger btn-compact btn-no-wrap">
-                    削除する
-                </button>
+                <button type="submit" class="btn btn-danger btn-compact btn-no-wrap">削除する</button>
             </form>
 
-            {{-- 戻る（マイページへ） --}}
-            <a href="{{ route('mypage.index') }}"
-               class="btn btn-secondary btn-compact btn-no-wrap">
-                戻る
-            </a>
+            <a href="{{ route('mypage.index') }}" class="btn btn-secondary btn-compact btn-no-wrap">戻る</a>
         </div>
     </div>
 </div>

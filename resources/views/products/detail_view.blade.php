@@ -1,3 +1,6 @@
+{{-- ファイル: products/detail_view.blade.php
+ 目的 : 一般向け商品詳細＋いいね・購入導線
+ 依存 : route('product.toggleLike'), route('purchase.form') --}}
 @extends('layouts.header_footer')
 
 @section('content')
@@ -10,7 +13,6 @@
     <p class="tight"><strong>説明：</strong></p>
     <p style="white-space:pre-wrap; margin-top:4px;">{{ $product->description }}</p>
 
-    {{-- 画像は「あるときだけ」表示（無ければ何も表示しない） --}}
     @if(!empty($product->img_path))
         <div class="img-wrap">
             <img src="{{ asset($product->img_path) }}" alt="{{ $product->product_name }}" width="300">

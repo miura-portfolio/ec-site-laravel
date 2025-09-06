@@ -1,3 +1,6 @@
+{{-- ファイル: mypage/account_edit_view.blade.php
+ 目的 : 会員のアカウント編集
+ 依存 : route('account.update'), route('mypage.index') --}}
 @extends('layouts.header_footer')
 
 @section('content')
@@ -20,26 +23,22 @@
 
         <div class="form-row">
             <label for="name">ユーザー名</label>
-            <input type="text" id="name" name="name"
-                   value="{{ old('name', $user->name) }}" required>
+            <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}" required>
         </div>
 
         <div class="form-row">
             <label for="email">Eメール</label>
-            <input type="email" id="email" name="email"
-                   value="{{ old('email', $user->email) }}" required>
+            <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" required>
         </div>
 
         <div class="form-row">
             <label for="name_kanji">名前</label>
-            <input type="text" id="name_kanji" name="name_kanji"
-                   value="{{ old('name_kanji', $user->name_kanji ?? '') }}" required>
+            <input type="text" id="name_kanji" name="name_kanji" value="{{ old('name_kanji', $user->name_kanji ?? '') }}" required>
         </div>
 
         <div class="form-row">
             <label for="name_kana">カナ</label>
-            <input type="text" id="name_kana" name="name_kana"
-                   value="{{ old('name_kana', $user->name_kana ?? '') }}" required>
+            <input type="text" id="name_kana" name="name_kana" value="{{ old('name_kana', $user->name_kana ?? '') }}" required>
         </div>
 
         {{-- 任意：変更したい場合のみ入力 --}}

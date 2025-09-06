@@ -9,8 +9,14 @@ use App\Http\Requests\PurchaseRequest;
 use App\Models\Product;
 use App\Models\Sale;
 
+/**
+ * 購入フロー（フォーム表示／購入処理）
+ * 防重設計: UUIDトークンをキャッシュに保存し、二重送信を抑止
+ * 整合性   : 悲観ロック＋在庫チェック＋トランザクション
+ */
 class PurchaseController extends Controller
 {
+    /** 購入フォーム表示（商品＋一時トークン） */
     public function showForm($id)
     {
         $product = Product::with('company')->findOrFail($id);
@@ -22,22 +28,29 @@ class PurchaseController extends Controller
         ]);
     }
 
+    /** 購入処理 */
     public function store(PurchaseRequest $request, $id)
     {
         $qty    = (int) $request->input('quantity', 1);
         $userId = Auth::id();
         $ptoken = $request->input('ptoken');
 
+        // 二重送信防止（60秒有効）
         $cacheKey = 'purchase:token:'.$ptoken;
         if (! Cache::add($cacheKey, true, 60)) {
-            return back()->withErrors(['purchase' => '同じ購入を重複送信した可能性があります。もう一度お試しください。'])->withInput();
+            return back()->withErrors([
+                'purchase' => '同じ購入を重複送信した可能性があります。もう一度お試しください。'
+            ])->withInput();
         }
 
         try {
             DB::transaction(function () use ($id, $qty, $userId) {
+                // 在庫整合性のため悲観ロック
                 $product = Product::where('id', $id)->lockForUpdate()->firstOrFail();
 
-                if ($product->stock < $qty) throw new \RuntimeException('在庫が不足しています。');
+                if ($product->stock < $qty) {
+                    throw new \RuntimeException('在庫が不足しています。');
+                }
 
                 $product->decrement('stock', $qty);
 
@@ -50,7 +63,9 @@ class PurchaseController extends Controller
             });
         } catch (\Throwable $e) {
             report($e);
-            return back()->withErrors(['purchase' => $e->getMessage() ?: '購入処理に失敗しました。もう一度お試しください。'])->withInput();
+            return back()->withErrors([
+                'purchase' => $e->getMessage() ?: '購入処理に失敗しました。もう一度お試しください。'
+            ])->withInput();
         }
 
         return redirect()->route('product.list')->with('success', '購入が完了しました！');

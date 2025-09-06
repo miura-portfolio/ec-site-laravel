@@ -1,3 +1,6 @@
+{{-- ファイル: products/create_view.blade.php
+ 目的 : 商品登録フォーム
+ 依存 : route('product.store') --}}
 @extends('layouts.header_footer')
 
 @section('content')
@@ -31,17 +34,11 @@
             @error('stock') <p style="color:red; font-size:0.9em;">{{ $message }}</p> @enderror
         </div>
 
-        {{-- ★ 会社選択と画像アップロードを明確に分ける --}}
         <div class="form-row">
             <label>会社</label>
-            <input type="text" name="company_name"
-                value="{{ old('company_name') }}"
-                required>
-            @error('company_name')
-                <p style="color:red; font-size:0.9em;">{{ $message }}</p>
-            @enderror
+            <input type="text" name="company_name" value="{{ old('company_name') }}" required>
+            @error('company_name') <p style="color:red; font-size:0.9em;">{{ $message }}</p> @enderror
         </div>
-
 
         <div class="form-row">
             <label>商品画像</label>
@@ -49,7 +46,6 @@
             @error('image') <p style="color:red; font-size:0.9em;">{{ $message }}</p> @enderror
         </div>
 
-        {{-- ★ 登録を左、戻るを右に。サイズは同じ（btn-compact） --}}
         <div class="form-actions">
             <button type="submit" class="btn btn-primary btn-compact">登録</button>
             <a href="{{ route('mypage.index') }}" class="btn btn-secondary btn-compact">戻る</a>

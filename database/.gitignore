@@ -1,1 +1,29 @@
-*.sqlite*
+# Laravel / PHP
+/vendor/
+/bootstrap/cache/*
+!bootstrap/cache/.gitignore
+/storage/*.key
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+/public/storage
+/.env
+/.env.*
+/.idea/
+/.vscode/*
+!.vscode/extensions.json
+
+# Node
+/node_modules/
+/npm-debug.log*
+
+# OS / misc
+.DS_Store
+Thumbs.db
+
+# DB & dumps
+*.sqlite
+*.sql
+*.sql.gz

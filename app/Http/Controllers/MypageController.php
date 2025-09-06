@@ -1,23 +1,27 @@
 <?php
-// app/Http/Controllers/MypageController.php
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\Sale;
 
+/**
+ * マイページ（出品一覧／購入履歴）
+ * 主要ルート: /mypage, /mypage/purchases
+ */
 class MypageController extends Controller
 {
+    /** マイページトップ：出品商品＋購入履歴のサマリ */
     public function index()
     {
         $user = Auth::user();
 
-        // 中部：出品商品（商品番号＝id 昇順）
+        // 出品商品（id昇順）
         $myProducts = Product::where('user_id', $user->id)
             ->orderBy('id', 'asc')
-            ->get(['id', 'product_name', 'description', 'img_path', 'price']); // ← リネーム後の列
+            ->get(['id', 'product_name', 'description', 'img_path', 'price']);
 
-        // 下部：購入した商品（購入日昇順）＋必要な商品列だけ eager load
+        // 購入履歴（商品は必要な列だけ eager load）
         $purchases = $user->sales()
             ->with(['product:id,product_name,description,price,img_path'])
             ->orderBy('created_at', 'asc')
@@ -26,6 +30,7 @@ class MypageController extends Controller
         return view('mypage.index_view', compact('user', 'myProducts', 'purchases'));
     }
 
+    /** 購入履歴詳細 */
     public function purchases()
     {
         $user = Auth::user();

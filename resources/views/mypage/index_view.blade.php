@@ -1,15 +1,16 @@
+{{-- ファイル: mypage/index_view.blade.php
+ 目的 : マイページ（プロフィール／出品一覧／購入サマリ）
+ 依存 : route('account.edit'), route('product.create'), route('product.ownerDetail'), route('mypage.purchases')
+ 注意 : Str::limit はデフォルトのFacadeエイリアスで使用 --}}
 @extends('layouts.header_footer')
 
 @section('content')
 <div class="container container-narrow">
     <h2>マイページ</h2>
 
-    {{-- 上部：ユーザー情報 --}}
     <div class="form-actions" style="justify-content: flex-start; margin-bottom: .5rem;">
         <form action="{{ route('account.edit') }}" method="GET" style="margin:0;">
-            <button type="submit" class="btn btn-primary btn-compact btn-no-wrap">
-                アカウント編集
-            </button>
+            <button type="submit" class="btn btn-primary btn-compact btn-no-wrap">アカウント編集</button>
         </form>
     </div>
 
@@ -24,7 +25,7 @@
         </div>
     </div>
 
-    {{-- 中部：出品商品 --}}
+    {{-- 出品商品 --}}
     <div style="display:flex; align-items:center; justify-content:space-between; margin: 12px 0 6px;">
         <h3 style="margin:0;">出品商品</h3>
         <a href="{{ route('product.create') }}" class="btn btn-primary btn-compact">新規登録</a>
@@ -35,41 +36,37 @@
     @else
         <table class="product-table">
             <thead>
-                <tr>
-                    <th>商品番号</th>
-                    <th>商品名</th>
-                    <th>商品説明</th>
-                    <th>画像</th>
-                    <th>料金 (¥)</th>
-                    <th></th>
-                </tr>
+            <tr>
+                <th>商品番号</th>
+                <th>商品名</th>
+                <th>商品説明</th>
+                <th>画像</th>
+                <th>料金 (¥)</th>
+                <th></th>
+            </tr>
             </thead>
             <tbody>
 @foreach($myProducts as $product)
-    <tr>
-        <td>{{ $product->id }}</td>
-        <td>{{ $product->product_name }}</td>
-        <td class="description-cell">
-            {{ Str::limit($product->description, 50) }}
-        </td>
-        <td>
-            @if(!empty($product->img_path))
-                <img src="{{ asset($product->img_path) }}" alt="{{ $product->product_name }}" width="60">
-            @endif
-            {{-- 画像削除時は何も表示しない（noimage を出さない） --}}
-        </td>
-        <td>{{ number_format($product->price) }}</td>
-        <td>
-            <a href="{{ route('product.ownerDetail', $product->id) }}"
-               class="btn btn-primary btn-compact">詳細</a>
-        </td>
-    </tr>
+<tr>
+    <td>{{ $product->id }}</td>
+    <td>{{ $product->product_name }}</td>
+    <td class="description-cell">{{ Str::limit($product->description, 50) }}</td>
+    <td>
+        @if(!empty($product->img_path))
+            <img src="{{ asset($product->img_path) }}" alt="{{ $product->product_name }}" width="60">
+        @endif
+    </td>
+    <td>{{ number_format($product->price) }}</td>
+    <td>
+        <a href="{{ route('product.ownerDetail', $product->id) }}" class="btn btn-primary btn-compact">詳細</a>
+    </td>
+</tr>
 @endforeach
             </tbody>
         </table>
     @endif
 
-    {{-- 下部：購入した商品 --}}
+    {{-- 購入した商品 --}}
     <div style="display:flex; align-items:center; justify-content:space-between; margin-top:24px;">
         <h3 style="margin:0;">購入した商品</h3>
         <a href="{{ route('mypage.purchases') }}" class="btn btn-primary btn-compact btn-no-wrap">購入履歴</a>

@@ -5,6 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * 購入履歴（単価スナップショットを保持）
+ * 主な列: user_id, product_id, quantity, price_at_purchase
+ */
 class Sale extends Model
 {
     use HasFactory;
@@ -13,7 +17,7 @@ class Sale extends Model
         'user_id',
         'product_id',
         'quantity',
-        'price_at_purchase',  // ★ マイグレーションと一致させる
+        'price_at_purchase',
     ];
 
     public function user()
@@ -21,7 +25,7 @@ class Sale extends Model
         return $this->belongsTo(User::class);
     }
 
-    // ★ ソフト削除済みの商品も履歴から参照できるように
+    /** ソフト削除済みの商品も履歴から参照可能に */
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id')->withTrashed();

@@ -1,8 +1,13 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+/**
+ * 商品（ソフト削除対応）
+ * 会社削除は制限（restrict）／ユーザー削除は連鎖（cascade）
+ */
 return new class extends Migration {
     public function up(): void {
         Schema::create('products', function (Blueprint $table) {
@@ -13,13 +18,8 @@ return new class extends Migration {
             $table->unsignedInteger('stock')->default(10);
             $table->string('img_path')->nullable();
 
-            $table->foreignId('user_id')
-                  ->constrained('users')
-                  ->cascadeOnDelete();
-
-            $table->foreignId('company_id')
-                  ->constrained('companies')
-                  ->restrictOnDelete(); // 会社に商品があれば会社削除不可
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('company_id')->constrained('companies')->restrictOnDelete();
 
             $table->timestamps();
             $table->softDeletes();

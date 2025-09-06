@@ -1,10 +1,15 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * 会員ユーザー
+ * リレーション: products, purchases(未使用), likedProducts, sales
+ */
 class User extends Authenticatable
 {
     use Notifiable, HasFactory;
@@ -22,21 +27,25 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function products() {
+    public function products()
+    {
         return $this->hasMany(Product::class);
     }
 
-    public function purchases() {
+    public function purchases()
+    {
         return $this->hasMany(Purchase::class);
     }
 
-    // 🔽 ここを追加！！
+    /** いいねしている商品 */
     public function likedProducts()
     {
         return $this->belongsToMany(Product::class, 'likes')->withTimestamps();
     }
+
+    /** 購入履歴 */
     public function sales()
     {
-    return $this->hasMany(Sale::class);
+        return $this->hasMany(Sale::class);
     }
 }

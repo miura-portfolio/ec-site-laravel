@@ -1,8 +1,13 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+/**
+ * いいね（ユーザー×商品の多対多）
+ * 同一組合せはユニーク
+ */
 return new class extends Migration {
     public function up(): void {
         Schema::create('likes', function (Blueprint $table) {

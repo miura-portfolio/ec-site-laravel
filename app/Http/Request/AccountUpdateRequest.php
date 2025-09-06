@@ -5,6 +5,10 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+/**
+ * アカウント情報の更新用バリデーション（要認証）
+ * メールは本人IDを除外して一意制約
+ */
 class AccountUpdateRequest extends FormRequest
 {
     public function authorize(): bool

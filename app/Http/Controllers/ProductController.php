@@ -10,6 +10,12 @@ use App\Http\Requests\ProductIndexRequest;
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
 
+/**
+ * 商品の一覧・詳細・CRUD・いいね
+ * 主要ルート: /products 系
+ * 方針     : 入力検証はFormRequest、画像はpublic(Storage)に保存、
+ *            所有者チェックはownerShow/destroyで実施
+ */
 class ProductController extends Controller
 {
     public function __construct()
@@ -19,6 +25,7 @@ class ProductController extends Controller
         ]);
     }
 
+    /** 一覧（名称・価格帯の簡易検索） */
     public function index(ProductIndexRequest $request)
     {
         $q = Product::query();
@@ -34,10 +41,11 @@ class ProductController extends Controller
             $q->where('price', '<=', $v['max_price']);
         }
 
-        $products = $q->get();
+        $products = $q->get(); // 実運用では paginate(20) などを検討
         return view('products.list_view', compact('products'));
     }
 
+    /** 一般向け詳細（いいね状態を付与） */
     public function show($id)
     {
         $product = Product::with('company')->findOrFail($id);
@@ -48,11 +56,13 @@ class ProductController extends Controller
         return view('products.detail_view', compact('product','isLiked'));
     }
 
+    /** 作成画面 */
     public function create()
     {
         return view('products.create_view');
     }
 
+    /** 登録処理（画像は storage/app/public/products に保存） */
     public function store(ProductStoreRequest $request)
     {
         $v = $request->validated();
@@ -62,7 +72,7 @@ class ProductController extends Controller
         $imagePathForView = null;
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('products', 'public');
-            $imagePathForView = 'storage/'.$path;
+            $imagePathForView = 'storage/'.$path; // 公開URL用のパス
         }
 
         Product::create([
@@ -78,12 +88,14 @@ class ProductController extends Controller
         return redirect()->route('mypage.index')->with('success','商品を登録しました');
     }
 
+    /** 編集画面 */
     public function edit($id)
     {
         $product = Product::findOrFail($id);
         return view('products.edit_view', compact('product'));
     }
 
+    /** 更新処理（画像の差し替え／削除に対応） */
     public function update(ProductUpdateRequest $request, $id)
     {
         $product = Product::findOrFail($id);
@@ -96,12 +108,14 @@ class ProductController extends Controller
             'stock'        => $v['stock'],
         ];
 
+        // 画像の削除指定
         if ($request->boolean('remove_image') && !empty($product->img_path)) {
             $publicPath = preg_replace('#^storage/#', '', $product->img_path);
             if ($publicPath) Storage::disk('public')->delete($publicPath);
             $data['img_path'] = null;
         }
 
+        // 画像の差し替え
         if ($request->hasFile('image')) {
             if (!empty($product->img_path)) {
                 $publicPath = preg_replace('#^storage/#', '', $product->img_path);
@@ -111,6 +125,7 @@ class ProductController extends Controller
             $data['img_path'] = 'storage/'.$path;
         }
 
+        // 会社名の更新（存在しなければ作成）
         if (isset($v['company_name'])) {
             $name = trim($v['company_name']);
             if ($name !== '') {
@@ -124,7 +139,7 @@ class ProductController extends Controller
         return redirect()->route('mypage.index')->with('success','商品を更新しました');
     }
 
-    // 以下はバリデ不要
+    /** いいねのトグル（attach/detach） */
     public function toggleLike($id)
     {
         $user = auth()->user();
@@ -138,17 +153,23 @@ class ProductController extends Controller
         return back();
     }
 
+    /** 出品者向け詳細（所有者チェック） */
     public function ownerShow($id)
     {
         $product = Product::with('company')->findOrFail($id);
-        if ($product->user_id !== auth()->id()) abort(Response::HTTP_FORBIDDEN);
+        if ($product->user_id !== auth()->id()) {
+            abort(Response::HTTP_FORBIDDEN);
+        }
         return view('products.owner_detail_view', compact('product'));
     }
 
+    /** 削除（画像ストレージのクリーンアップ含む） */
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
-        if ($product->user_id !== auth()->id()) abort(Response::HTTP_FORBIDDEN);
+        if ($product->user_id !== auth()->id()) {
+            abort(Response::HTTP_FORBIDDEN);
+        }
 
         if (!empty($product->img_path)) {
             $publicPath = preg_replace('#^storage/#', '', $product->img_path);

@@ -1,3 +1,6 @@
+{{-- ファイル: mypage/purchases.blade.php
+ 目的 : 購入履歴（詳細表）
+ 注意 : 価格は sales.price_at_purchase を優先して表示 --}}
 @extends('layouts.header_footer')
 
 @section('content')
@@ -19,18 +22,11 @@
             <tbody>
                 @foreach($purchases as $purchase)
                 <tr>
-                    {{-- 購入日 --}}
                     <td>{{ $purchase->created_at->format('Y-m-d') }}</td>
-
-                    {{-- 商品名（product_name に変更） --}}
                     <td>{{ $purchase->product->product_name ?? '不明' }}</td>
-
-                    {{-- 個数（sales.quantity 前提。無ければ 1） --}}
                     <td>{{ $purchase->quantity ?? 1 }}</td>
-
-                    {{-- 金額（sales.price 優先、無ければ product.price × quantity） --}}
                     @php
-                        $unitPrice = $purchase->price ?? ($purchase->product->price ?? 0);
+                        $unitPrice = $purchase->price_at_purchase ?? ($purchase->product->price ?? 0);
                         $qty = $purchase->quantity ?? 1;
                     @endphp
                     <td>{{ number_format($unitPrice * $qty) }}</td>

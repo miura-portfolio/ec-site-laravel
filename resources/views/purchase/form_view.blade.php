@@ -1,10 +1,12 @@
+{{-- ファイル: purchase/form_view.blade.php
+ 目的 : 購入フォーム（二重送信防止トークン）
+ 依存 : route('purchase.store') --}}
 @extends('layouts.header_footer')
 
 @section('content')
 <div class="container container-narrow">
     <h2>商品購入</h2>
 
-    {{-- エラーメッセージ --}}
     @if ($errors->has('purchase'))
         <div class="flash-message error" role="alert">{{ $errors->first('purchase') }}</div>
     @endif
@@ -12,7 +14,6 @@
         <div class="flash-message error" role="alert">{{ $message }}</div>
     @enderror
 
-    {{-- 成功メッセージ --}}
     @if (session('success'))
         <div class="flash-message" role="status" aria-live="polite">
             {{ session('success') }}
@@ -41,7 +42,6 @@
               class="purchase-form"
               onsubmit="this.querySelector('button[type=submit]').disabled=true;">
             @csrf
-            {{-- ★ 二重送信防止用トークン --}}
             <input type="hidden" name="ptoken" value="{{ $ptoken }}">
 
             <div class="form-row" style="margin-top:.75rem;">
@@ -56,15 +56,10 @@
             </div>
 
             <div class="form-actions" style="margin-top: .75rem;">
-                <button type="submit"
-                        class="btn btn-primary btn-compact"
-                        {{ $product->stock === 0 ? 'disabled' : '' }}>
+                <button type="submit" class="btn btn-primary btn-compact" {{ $product->stock === 0 ? 'disabled' : '' }}>
                     購入する
                 </button>
-                <a href="{{ route('product.list') }}"
-                   class="btn btn-secondary btn-compact">
-                   戻る
-                </a>
+                <a href="{{ route('product.list') }}" class="btn btn-secondary btn-compact">戻る</a>
             </div>
         </form>
     </div>

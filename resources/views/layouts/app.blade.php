@@ -1,3 +1,6 @@
+{{-- ファイル: layouts/app.blade.php
+ 目的 : ベースレイアウト（未使用でも保守のため残置）
+ 注意 : 通常は layouts/header_footer.blade.php を継承 --}}
 <!DOCTYPE html>
 <html lang="ja">
 <head>

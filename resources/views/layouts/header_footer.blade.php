@@ -1,3 +1,6 @@
+{{-- ファイル: layouts/header_footer.blade.php
+ 目的 : 共通ヘッダー/フッター＋@yield('content')
+ 注意 : CSRFメタ/共通CSS・JSの読み込み --}}
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -17,8 +20,6 @@
 
             @auth
                 <span style="margin-left: 1rem;">ようこそ、{{ Auth::user()->name }} さん</span>
-
-                {{-- ログアウトをリンク風に --}}
                 <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="margin-left: 1rem;">
                     ログアウト
                 </a>
@@ -42,7 +43,7 @@
         <nav class="nav-links">
             <a href="{{ route('product.list') }}">Home</a>
             <a href="{{ route('mypage.index') }}">マイページ</a>
-            <a href="{{ route('inquiry.form') }}">お問い合わせ</a> {{-- フッターのリンクは残す --}}
+            <a href="{{ route('inquiry.form') }}">お問い合わせ</a>
         </nav>
         <p>&copy; 2025 Laravel Market</p>
     </footer>

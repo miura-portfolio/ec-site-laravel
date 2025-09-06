@@ -4,7 +4,11 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductUpdateRequest extends FormRequest
+/**
+ * 商品登録の入力検証
+ * 画像は5MB・jpg/jpeg/png/webp
+ */
+class ProductStoreRequest extends FormRequest
 {
     public function authorize(): bool { return auth()->check(); }
 
@@ -16,8 +20,7 @@ class ProductUpdateRequest extends FormRequest
             'price'        => ['required','integer','min:0'],
             'stock'        => ['required','integer','min:0'],
             'image'        => ['nullable','image','mimes:jpg,jpeg,png,webp','max:5120'],
-            'company_name' => ['nullable','string','max:255'],
-            'remove_image' => ['nullable','boolean'],
+            'company_name' => ['required','string','max:255'],
         ];
     }
 
@@ -26,7 +29,6 @@ class ProductUpdateRequest extends FormRequest
         return [
             'name'=>'商品名','description'=>'商品説明','price'=>'価格',
             'stock'=>'在庫','image'=>'画像','company_name'=>'会社名',
-            'remove_image'=>'画像の削除',
         ];
     }
 }
